@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "uyB+ee71oytQRqhR9PUCIwg5QvJSUMN/ydRvXwW0SxI=",
+  "Source": "RestApiTask",
+  "BasePath": "_content/RestApiTask",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
