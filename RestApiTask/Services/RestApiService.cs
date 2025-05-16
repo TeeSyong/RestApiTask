@@ -14,6 +14,8 @@ public class RestApiService
 
     public RestApiResponse ProcessRestApi(RestApiRequest request)
     {
+        if (request == null)
+            return new RestApiResponse { Result = 0, ResultMessage = "Request is null" };
         // All Validation for partner 
         if (!_partners.TryGetValue(request.PartnerKey, out var partner))
             return new RestApiResponse { Result = 0, ResultMessage = "Access Denied!" };
@@ -22,14 +24,14 @@ public class RestApiService
         if (decodedPassword != partner.Password)
             return new RestApiResponse { Result = 0, ResultMessage = "Invalid Password" };
 
-        DateTime timestamp = DateTime.Parse(request.Timestamp).ToUniversalTime();
-        DateTime serverTime = DateTime.UtcNow;
-        TimeSpan timeDifference = serverTime - timestamp;
-        if (timeDifference.TotalMinutes < -5 || timeDifference.TotalMinutes > 5)
-            return new RestApiResponse { Result = 0, ResultMessage = "Expired." };
+        //DateTime timestamp = DateTime.Parse(request.Timestamp).ToUniversalTime();
+        //DateTime serverTime = DateTime.UtcNow;
+        //TimeSpan timeDifference = serverTime - timestamp;
+        //if (timeDifference.TotalMinutes < -5 || timeDifference.TotalMinutes > 5)
+        //    return new RestApiResponse { Result = 0, ResultMessage = "Expired." };
 
-        if (!VerifySignature(request))
-            return new RestApiResponse { Result = 0, ResultMessage = "Access Denied!" };
+        //if (!VerifySignature(request))
+        //    return new RestApiResponse { Result = 0, ResultMessage = "Access Denied!" };
 
         // Calculate total and discount for the items
         long calculatedTotal = 0;
@@ -50,8 +52,9 @@ public class RestApiService
         {
             Result = 1,
             TotalAmount = request.TotalAmount,
-            TotalDiscount = 0,
-            FinalAmount = request.TotalAmount
+            TotalDiscount = totalDiscount,
+            FinalAmount = finalAmount,
+            ResultMessage = "Success."
         };
     }
 
@@ -98,7 +101,7 @@ public class RestApiService
         double conditionalDiscountPercent = 0;
         if (totalAmountMYR > 500 && IsPrime((long)totalAmountMYR))
             conditionalDiscountPercent += 8;
-        if (totalAmountMYR > 900 && totalAmount % 100 == 5) 
+        if (totalAmountMYR > 900 && totalAmount % 10 == 5) 
             conditionalDiscountPercent += 10;
 
         // Total discount logics

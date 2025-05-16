@@ -1,0 +1,55 @@
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# VS Code
+.vs/
+.vs/
+/ .vs
+
+# Rider
+.idea/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Others
+*.pdb
+*.cache
+*.db
+*.mdb
+
+# Test results
+TestResults/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# dotnet-specific
+artifacts/
+*.vspscc
+*.vssscc
+
+# Docker
+**/Dockerfile
+
+# SourceLink
+*.sourcelink.json
+
+# Auto-generated files you don't want tracked
+*.g.cs
+*.AssemblyInfo.cs
