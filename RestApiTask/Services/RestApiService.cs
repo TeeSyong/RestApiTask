@@ -24,17 +24,18 @@ public class RestApiService
         if (decodedPassword != partner.Password)
             return new RestApiResponse { Result = 0, ResultMessage = "Invalid Password" };
 
-        //DateTime timestamp = DateTime.Parse(request.Timestamp).ToUniversalTime();
-        //DateTime serverTime = DateTime.UtcNow;
-        //TimeSpan timeDifference = serverTime - timestamp;
-        //if (timeDifference.TotalMinutes < -5 || timeDifference.TotalMinutes > 5)
-        //    return new RestApiResponse { Result = 0, ResultMessage = "Expired." };
+        DateTime timestamp = DateTime.Parse(request.Timestamp).ToUniversalTime();
+        DateTime serverTime = DateTime.UtcNow;
+        TimeSpan timeDifference = serverTime - timestamp;
+        if (timeDifference.TotalMinutes < -5 || timeDifference.TotalMinutes > 5)
+            return new RestApiResponse { Result = 0, ResultMessage = "Expired." };
 
-        //if (!VerifySignature(request))
-        //    return new RestApiResponse { Result = 0, ResultMessage = "Access Denied!" };
+        if (!VerifySignature(request))
+            return new RestApiResponse { Result = 0, ResultMessage = "Access Denied!" };
 
-        // Calculate total and discount for the items
-        long calculatedTotal = 0;
+        //Calculate total and discount for the items
+
+       long calculatedTotal = 0;
         if (request.Items != null)
         {
             foreach (var item in request.Items)
